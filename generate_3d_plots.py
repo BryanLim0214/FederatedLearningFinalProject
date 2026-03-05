@@ -7,10 +7,16 @@ from mpl_toolkits.mplot3d import Axes3D
 import seaborn as sns
 from pathlib import Path
 
-# Professional academic styling
+# Professional academic styling - optimized for high readability in papers
 plt.style.use('seaborn-v0_8-whitegrid')
-sns.set_context("paper", font_scale=1.5)
+sns.set_context("talk", font_scale=1.2) # 'talk' provides thicker lines and larger base fonts than 'paper'
 plt.rcParams['font.family'] = 'serif'
+plt.rcParams['axes.titlesize'] = 20
+plt.rcParams['axes.labelsize'] = 18
+plt.rcParams['xtick.labelsize'] = 16
+plt.rcParams['ytick.labelsize'] = 16
+plt.rcParams['legend.fontsize'] = 16
+plt.rcParams['figure.titlesize'] = 22
 
 RESULTS_DIR = 'data/plots'
 Path(RESULTS_DIR).mkdir(parents=True, exist_ok=True)
