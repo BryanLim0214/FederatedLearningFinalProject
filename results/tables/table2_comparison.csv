@@ -1,0 +1,6 @@
+Method,F1,AUC,NMI,ARI,#Clusters,Rank Overhead (B)
+FedAvg,0.0,0.5,0.0,0.0,—,N/A
+FedClust,0.0,0.5,0.0,0.0,—,N/A
+FedRankX,0.0,0.5,0.0,0.0,—,14400
+IFCA,0.0,0.5,0.0,0.0,—,N/A
+LocalOnly,0.0,0.5,0.0,0.0,—,N/A

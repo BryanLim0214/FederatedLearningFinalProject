@@ -1,0 +1,172 @@
+======================================================================
+  REAL-WORLD PHISHING DETECTION DEMO
+  FedRankX: Privacy-Preserving Collaborative Phishing Defense
+======================================================================
+
+  Loaded 32 organizations with real phishing detection data
+
+======================================================================
+  STEP 1: Each Organization Trains Locally (No Sharing)
+======================================================================
+  Banking     : Avg F1=0.974  AUC=0.997  (8 orgs)
+  Healthcare  : Avg F1=0.686  AUC=0.830  (6 orgs)
+  Government  : Avg F1=0.953  AUC=0.996  (6 orgs)
+  SMB         : Avg F1=0.745  AUC=0.838  (8 orgs)
+  Mixed       : Avg F1=0.820  AUC=0.933  (4 orgs)
+
+======================================================================
+  STEP 2: FedRankX Discovers Organizational Clusters via SHAP Ranks
+  (Each org sends only 60 bytes — a ranked feature importance list)
+======================================================================
+
+  FedRankX discovered 18 organizational clusters:
+
+  Cluster 0: [7 SMB, 3 Healthcare]
+    Members: Cleveland Clinic, Johns Hopkins, UCLA Health, +7 more
+  Cluster 1: [3 Healthcare, 1 SMB]
+    Members: Mayo Clinic, Kaiser Permanente, Mass General, +1 more
+  Cluster 2: [1 Mixed]
+    Members: University Hospital
+  Cluster 3: [1 Mixed]
+    Members: Credit Union
+  Cluster 4: [1 Mixed]
+    Members: State Gov Portal
+  Cluster 5: [1 Mixed]
+    Members: Defense Contractor
+  Cluster 6: [1 Banking, 1 Government]
+    Members: JP Morgan, FBI Cyber
+  Cluster 7: [1 Banking, 1 Government]
+    Members: Morgan Stanley, Dept of Treasury
+  Cluster 8: [1 Government]
+    Members: CISA
+  Cluster 9: [1 Banking]
+    Members: Goldman Sachs
+  Cluster 10: [1 Government]
+    Members: Dept of Defense
+  Cluster 11: [1 Banking]
+    Members: Bank of America
+  Cluster 12: [1 Banking]
+    Members: Citibank
+  Cluster 13: [1 Government]
+    Members: Dept of Energy
+  Cluster 14: [1 Banking]
+    Members: Capital One
+  Cluster 15: [1 Government]
+    Members: NSA
+  Cluster 16: [1 Banking]
+    Members: Wells Fargo
+  Cluster 17: [1 Banking]
+    Members: Chase Bank
+
+  Cluster Quality: NMI=0.606 (0=random, 1=perfect match)
+  => SHAP ranks capture 61% of the true organizational structure!
+
+======================================================================
+  STEP 3: Cluster-Aware Ensemble Phishing Detection
+  (Each org uses averaged predictions from all cluster peers)
+======================================================================
+
+  Organization              Sector         Local F1  FedRankX F1     Gain
+  -------------------------------------------------------------------
+  Chase Bank                Banking           0.968        0.968  +0.000 =
+  Bank of America           Banking           0.969        0.969  +0.000 =
+  Wells Fargo               Banking           0.967        0.967  +0.000 =
+  Citibank                  Banking           0.975        0.975  +0.000 =
+  Goldman Sachs             Banking           0.965        0.965  +0.000 =
+  JP Morgan                 Banking           0.989        0.985  -0.004 =
+  Morgan Stanley            Banking           0.990        0.986  -0.004 =
+  Capital One               Banking           0.968        0.968  +0.000 =
+  Mayo Clinic               Healthcare        0.755        0.764  +0.009 +
+  Kaiser Permanente         Healthcare        0.703        0.740  +0.037 +
+  Cleveland Clinic          Healthcare        0.590        0.692  +0.101 +
+  Johns Hopkins             Healthcare        0.710        0.789  +0.080 +
+  UCLA Health               Healthcare        0.695        0.744  +0.048 +
+  Mass General              Healthcare        0.660        0.701  +0.041 +
+  Dept of Defense           Government        0.964        0.964  +0.000 =
+  FBI Cyber                 Government        0.963        0.974  +0.011 +
+  NSA                       Government        0.945        0.945  +0.000 =
+  CISA                      Government        0.941        0.941  +0.000 =
+  Dept of Treasury          Government        0.966        0.981  +0.015 +
+  Dept of Energy            Government        0.942        0.942  +0.000 =
+  Tech Startup A            SMB               0.803        0.793  -0.009 -
+  Marketing Firm B          SMB               0.764        0.786  +0.022 +
+  Law Office C              SMB               0.705        0.732  +0.027 +
+  Accounting Firm D         SMB               0.720        0.716  -0.004 =
+  Design Studio E           SMB               0.749        0.765  +0.016 +
+  Consulting Co F           SMB               0.726        0.763  +0.037 +
+  Insurance Agency G        SMB               0.749        0.777  +0.028 +
+  Real Estate Co H          SMB               0.745        0.792  +0.048 +
+  University Hospital       Mixed             0.816        0.816  +0.000 =
+  State Gov Portal          Mixed             0.856        0.856  +0.000 =
+  Credit Union              Mixed             0.816        0.816  +0.000 =
+  Defense Contractor        Mixed             0.793        0.793  +0.000 =
+
+  Sector         Local F1  FedRankX F1  Improvement
+  --------------------------------------------------
+  Banking           0.974        0.973      -0.001
+  Healthcare        0.686        0.738      +0.053
+  Government        0.953        0.958      +0.004
+  SMB               0.745        0.766      +0.021
+  Mixed             0.820        0.820      +0.000
+  OVERALL           0.840        0.855      +0.016
+
+======================================================================
+  STEP 4: Sample Phishing Classifications
+======================================================================
+
+  Organization: Real Estate Co H (SMB sector)
+  Test samples: 300 (143 phishing, 157 legitimate)
+  Local F1:    0.745
+  FedRankX F1: 0.792
+  Improvement: +0.048
+
+  --- Local Model (trained only on Real Estate Co H's data) ---
+  True Negatives (correct legit):  123
+  False Positives (false alarms):  34
+  False Negatives (MISSED phish):  38  <-- DANGEROUS!
+  True Positives (caught phish):   105
+
+  --- FedRankX Ensemble (cluster-aware, 10 org models) ---
+  True Negatives (correct legit):  140
+  False Positives (false alarms):  17
+  False Negatives (MISSED phish):  38  <-- DANGEROUS!
+  True Positives (caught phish):   105
+
+======================================================================
+  STEP 5: Privacy & Communication Analysis
+======================================================================
+
+  What each organization shares per round:
+    FedAvg:   Full model weights = 695,021 bytes (679 KB)
+    FedRankX: SHAP rank list     = 60 bytes
+    Compression ratio: 11,584x smaller!
+
+  Per round (32 organizations):
+    FedAvg:   44,481,344 bytes (42.4 MB)
+    FedRankX: 1,920 bytes (1.9 KB)
+
+  Privacy: FedRankX shares ZERO model weights or gradients.
+  Only a ranked list of feature importance indices is exchanged.
+  This makes model inversion attacks infeasible.
+
+======================================================================
+  FINAL RESULTS SUMMARY
+======================================================================
+
+  Organizations: 32 (Banks, Hospitals, Gov Agencies, SMBs)
+  Task: Phishing URL/Email Detection
+  Data: ISCX-URL2016 + Kaggle Phishing Emails (real datasets)
+
+  Method                 Avg F1   Avg AUC
+  ----------------------------------------
+  FedRankX (ours)         0.855     0.935
+  Local Only              0.840     0.918
+
+  Cluster Discovery: NMI = 0.606
+  Communication Cost: 11,584x reduction
+  Orgs improved: 14/32
+  Max single-org improvement: +0.101 F1
+
+======================================================================
+  Demo complete!
+======================================================================

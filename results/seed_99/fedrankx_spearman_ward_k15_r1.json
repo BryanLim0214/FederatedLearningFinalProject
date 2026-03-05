@@ -1,0 +1,77 @@
+{
+  "method": "FedRankX",
+  "n_clients": 16,
+  "n_rounds": 1,
+  "top_k": 15,
+  "rank_metric": "spearman",
+  "linkage_method": "ward",
+  "distance_threshold": 0.5,
+  "n_clusters_target": null,
+  "losses": [
+    [
+      1,
+      0.6446630222297066
+    ]
+  ],
+  "f1_history": [
+    [
+      1,
+      0.08829365079365079
+    ]
+  ],
+  "auc_history": [
+    [
+      1,
+      0.5491365088679847
+    ]
+  ],
+  "round_cluster_history": [
+    {
+      "round": 1,
+      "cluster_labels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        2
+      ],
+      "client_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "n_clusters": 3,
+      "nmi": 0.3724875388420006,
+      "ari": 0.09504132231404959,
+      "n_clusters_discovered": 3
+    }
+  ],
+  "final_f1": 0.08829365079365079,
+  "final_auc": 0.5491365088679847,
+  "final_nmi": 0.3724875388420006,
+  "final_ari": 0.09504132231404959
+}

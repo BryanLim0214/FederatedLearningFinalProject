@@ -1,0 +1,16 @@
+{
+  "method": "FedRankX",
+  "n_clients": 32,
+  "n_rounds": 30,
+  "n_estimators": 200,
+  "top_k": 15,
+  "distance_threshold": 0.3,
+  "f1_mean": 0.8231129411803079,
+  "f1_std": 0.0,
+  "auc_mean": 0.8934963885768233,
+  "auc_std": 0.0,
+  "nmi_mean": 0.658816627774043,
+  "nmi_std": 0.0,
+  "ari_mean": 0.35004863287582405,
+  "ari_std": 0.0
+}
