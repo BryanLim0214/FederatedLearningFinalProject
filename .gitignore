@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Environment
+.env
+.env.*
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Logs
+*.log
+
+# Unrelated project files
+roblox-project-sync/
+
+# Scratch / debug scripts
+push_github.bat
+save_demo.py
+debug_fedclust.py
+smoke_test.py
+run_fast_real_smoke.py
+test_baselines.py
+test_fix.py
+test_real_data.py
+test_real_fix.py
+test_real_hard.py
+
+# Intermediate / test results (keep results_final and results_real)
+results_test/
+results_test_real/
+results_test_real_hard/
+results_v2/
+results/smoke_test/
+results/smoke_test_real/
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.out
+*.synctex.gz
+*.fdb_latexmk
+*.fls

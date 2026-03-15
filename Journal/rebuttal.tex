@@ -1,0 +1,208 @@
+\documentclass{article}
+
+\usepackage{neurips_2019_author_response}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage[
+  colorlinks=true,
+]{hyperref}
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professiona\textbf{L}-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{lipsum}
+
+% extra package and macros
+\usepackage{xcolor}
+\usepackage{amssymb}% http://ctan.org/pkg/amssymb
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\usepackage{graphicx}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\usepackage{multirow}
+\usepackage{wrapfig,lipsum,booktabs}
+
+% \input{macros.tex}
+\AtBeginDocument{% optionally set colors to your liking
+  \hypersetup{
+    urlcolor=red,
+    citecolor=green,
+    linkcolor=red,
+  }%
+}
+\definecolor{citecolor}{RGB}{34,139,34}
+\definecolor{mydarkblue}{rgb}{0,0.2,0.8}
+\definecolor{mydarkgreen}{rgb}{0.02,0.6,0.02}
+\definecolor{mydarkred}{rgb}{0.8,0.02,0.02}
+\newcommand{\ligeng}[1]{\textcolor{mydarkred}{[Ligeng: #1]}}
+\newcommand{\zhijian}[1]{\textcolor{mydarkblue}{[Zhijian: #1]}}
+\newcommand{\SH}[1]{\textcolor{mydarkred}{[Song: #1]}}
+    
+\makeatletter
+\DeclareRobustCommand\onedot{\futurelet\@let@token\@onedot}
+\def\@onedot{\ifx\@let@token.\else.\null\fi\xspace}
+
+\def\iid{\emph{i.i.d}\onedot}
+\def\eg{\emph{e.g}\onedot} \def\Eg{\emph{E.g}\onedot}
+\def\ie{\emph{i.e}\onedot} \def\Ie{\emph{I.e}\onedot}
+\def\cf{\emph{c.f}\onedot} \def\Cf{\emph{C.f}\onedot}
+\def\etc{\emph{etc}\onedot} \def\vs{\emph{vs}\onedot}
+\def\wrt{w.r.t\onedot} \def\dof{d.o.f\onedot}
+\def\etal{\emph{et al}\onedot}
+\makeatother
+
+\newcommand{\revquote}[2]{
+    % \vspace{0.02\linewidth}
+    \noindent{\textcolor{mydarkblue}{\textbf{#1:} #2}}
+}
+\newcommand{\revquoteB}[4]{
+    % \vspace{0.02\linewidth}
+    \noindent{\small{\textcolor{mydarkblue}{\textbf{#1:} #2; \textbf{#3:} #4}}}
+}
+
+\newcommand{\lgcmark}{\textcolor{green}{\cmark}}
+\newcommand{\lgxmark}{\textcolor{red}{\xmark}}
+
+\usepackage{xstring}
+\usepackage{amstext}
+\usepackage{subcaption}
+\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+\makeatletter
+\newcommand{\lgcite}[1]{%
+  \begingroup%
+  % count the elements
+  \@tempcnta=\z@
+  \renewcommand*\do[1]{\advance\@tempcnta\@ne}%
+  \docsvlist{#1}%
+  \chardef\@listsize\@tempcnta%
+  \@tempcnta=\@ne[%
+  \renewcommand*\do[1]{%
+    \ifnum\@tempcnta<\@listsize
+      \textcolor{citecolor}{##1},\penalty\z@ \advance\@tempcnta\@ne%
+    \else
+      \unpenalty\textcolor{citecolor}{##1}]%
+    \fi}%
+  \docsvlist{#1}%
+  \endgroup%
+}
+\makeatother
+
+
+\begin{document}
+
+    
+We thank all reviewers for their comments. All reviewers think it is an interesting paper. 
+%
+R1's review summarizes our contribution well: ``DLG is the first to shows a malicious player can recover private training data in collaborative learning scenario.''
+%
+Both R1 and R3 are positive overall in their comments (R1 ``easy to read and well structured'', ``raises an important privacy issue'', R3 ``easy to read and understand'', ``it is surprising that obtaining the training datasets is possible by only utilizing the gradients'' ). For all typos/grammar mistakes, we have revised our writing accordingly. 
+
+\revquote{R2}{DLG may not work for accumulated gradients / Contrived settings.}
+% 
+This is a misunderstanding: DLG is still effective in federated learning (Tab.~\ref{tab:accumulation}).
+% 
+In the real-world case, a common workflow is to firstly deliver a pre-trained model to users' devices and fine-tune it by Federated Learning\footnote{Towards federated learning at scale:  System design~\url{https://arxiv.org/abs/1902.01046}}. In this case, the gradient and learning rate are both small, thus the weight changes are small too. Thereby it can be approximated as multi-batch case and this is still possible to attack.
+% 
+Nowadays, noisy / sparse / accumulated gradients are just 
+\textit{optional} choices for training acceleration, but actually they are 
+\textit{essential} techniques to protect the training set. \textbf{Our work aims to raise people's awareness about the security of gradients}.
+
+\begin{minipage}{0.6\linewidth}
+    \centering
+    \small{
+        \begin{tabular}{c|c|c|c|c}
+                                  &   Iterations=1 &  Iterations=2 &  Iterations=3 &  Iterations=4 \\ \hline
+             MSE   &  $3.3 \times 10^{-6}$  & $3.5 \times 10^{-3}$ & $3.0 \times 10^{-3}$ &  $1.8 \times 10^{-2}$ \\ 
+        \end{tabular}
+    \captionof{table}{The effectiveness of DLG on federated learning for different communication frequency.}
+    \label{tab:accumulation}
+    }
+\end{minipage}
+% 
+\begin{minipage}{0.4\linewidth}
+    \centering
+    \small{
+        \begin{tabular}{c|c|c}
+                           &   Property Inference~\lgcite{26} &   DLG   \\ \hline
+              Eyeglasses   &    0.94              &   \textbf{1.00}   \\ \hline
+              Asian        &    0.92              &   \textbf{1.00}   \\
+        \end{tabular}
+    \captionof{table}{AUC score on LFW dataset.}
+    \label{tab:auc_score}
+    }
+\end{minipage}
+\vspace{-10pt}
+
+\revquote{R3}{Comparison with previous work.} To the best of our acknowledge, \textbf{DLG is the first algorithm that performs pixel-level and token-level leakage} based on shared gradients. We have compared conventional synthetic outputs and our recovered results in the Fig.~4 in our paper. We also add a comparison on property inference task in Tab.~\ref{tab:auc_score}: DLG is significantly better since it can directly obtain the raw training data. In the revision, we will add more comparisons.
+
+
+% common questions
+\revquote{R1, R2}{Trade-off between accuracy and defendability.} 
+\revquote{R3}{The method is easy to defend.} 
+\revquote{R1}{Does 8-bit help?}
+DLG is not easy to defend unless with a significant drop in accuracy. 8-bit gradient does not help either. 
+We study the trade-off between accuracy and defendability in Tab.~\ref{tab:defense_accuracy}. It shows that \textbf{only when the defense strategy starts to degrade the accuracy then the deep leakage can be defended}. 
+% G: Gaussian noise, L: Laplacian noise and also lower precision. 
+
+\begin{table}[h!]
+\setlength{\tabcolsep}{4.5pt}
+\centering
+\footnotesize{
+\begin{tabular}[t]{c||c||c|c|c|c||c|c|c|c||c|c}
+    & Original  & \textbf{G}-$10^{-4}$ & \textbf{G}-$10^{-3}$ & \textbf{G}-$10^{-2}$ & \textbf{G}-$10^{-1}$ & \textbf{L}-$10^{-4}$ & \textbf{L}-$10^{-3}$ & \textbf{L}-$10^{-2}$ & \textbf{L}-$10^{-1}$  & \textbf{FP}-16 & \textbf{8 bit}  \\ \hline
+    Accuracy & 76.3\% & 75.6\% & 73.3\% & 45.3\% & $\le$1\% &  75.6\%  &  73.4\%    &  46.2\%   &  $\le$1\%  & 76.1\%  & 53.7\% \\ \hline
+    Defendability & -- & \lgxmark &  \lgxmark & \lgcmark &  \lgcmark & \lgxmark & \lgxmark & \lgcmark & \lgcmark & \lgxmark & \lgcmark
+\end{tabular}
+}
+\caption{\textbf{G}: Gaussian noise, \textbf{L}: Laplacian noise, \textbf{FP}: Floating number. 
+\lgcmark~means it successfully defends against DLG while \lgxmark~means fails to defend. The accuracy is evaluated on CIFAR-100, same as what we used in the paper.
+}
+\label{tab:defense_accuracy}
+\vspace{-15pt}
+\end{table}
+
+\revquote{R2}{Do you use all trainable parameters of the ResNet as $\nabla W$? Is the model $W$ trained to convergence?} 
+Gradients of \textit{all} trainable parameters are used as $\nabla W$. It is important to clarify that DLG does \textit{not} require the model trained to converge:~\textbf{The attack can be performed at any moment during the training}~(Tab.~\ref{tab:leak_vs_convergence}). Our results in paper are based on randomly initialized models. 
+
+\begin{table}[h!]
+    \centering
+    \small{
+    \begin{tabular}{c|c|c|c|c}
+        Train Progress & 0\% epochs & 30\% epochs & 70\% epochs & 100\% epochs \\ \hline
+         MSE      & $5.7 \times 10^{-6}$ & $3.1 \times 10^{-7}$ & $4.4 \times 10^{-6}$ &  $3.3 \times 10^{-6}$
+    \end{tabular}
+    \caption{The MSE between leaked image and ground truth on different training stages. Pixel values are normalized to $[0, 1]$. The leaked image is nearly identical to original ones at each training phase.}
+    \label{tab:leak_vs_convergence}
+    }
+\end{table}
+\vspace{-15pt}
+
+\revquote{R1}{The concept of `iterations' } % \hspace{-5pt}
+refers to the ``n'' in the for-loop in DLG algorithm, not the training iterations.
+
+% \revquote{R1}{8 bits precision, for example} \revquote{R1}{F is twice differentiable, any other conditions?}
+
+\revquote{R2}{Fig 5. Is the blue line "L2 distance" over all parameters and other lines over parameters of specific layers?}
+No, the L2 distance (on the top of the figure) is measured between the leaked image and original ground truth image. Other lines are the distance between dummy gradients~$\nabla W'$ and real gradients~$\nabla W$ in each layer. We'll make it clear in the paper.
+
+\revquote{R2}{Are qualitative results from a held-out test set? How/why were these images chosen?} Yes, qualitative results are from a held-out test set. These images are randomly sampled and more examples have been already provided in the appendix. There is no cherry-picking. 
+
+\revquote{R2}{DLG becomes harder (needs more iterations) to attack when batch size increases." Wouldn't this also make for a good defense? How do the reconstruction results vary with batch size?}
+In multi-batch examples (Fig 3 in paper and Line 1 in appendix), we only observe few artifact pixels compared with single-batch cases. Note DLG can be performed off-line as long as current model status and gradients are saved. Large-batch is not a good defense strategy since the information can be still leaked with more time and iterations.
+
+
+\revquote{R3}{Time cost for L-BFGS reconstruction.} 
+Though L-BFGS takes more calculations for every single step, it is still faster (5~minutes) than other optimizers like SGD (30~minutes) on our hardware (Nvidia Tesla v100).
+
+
+\begingroup
+\footnotesize{
+\renewcommand{\section}[2]{} % omit the section title 
+\bibliographystyle{abbrv}
+\bibliography{references}
+}
+\endgroup
+
+\end{document}

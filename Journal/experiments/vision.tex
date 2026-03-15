@@ -1,0 +1,45 @@
+% \newcommand\imgwidth{0.080}
+
+\begin{figure}[t]
+    \centering
+    \begin{tabular}{c c c c c | c | c}
+      Iters=0 & Iters=10 & Iters=50 & Iters=100 & Iters=500 & Melis~\cite{Melis2018unintended} & Ground Truth \\
+        \includegraphics[width=\imgwidth\linewidth]{experiments/mnist_0_ours/0000.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/mnist_0_ours/0020.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/mnist_0_ours/0050.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/mnist_0_ours/0100.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/mnist_0_ours/0500.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/mnist_0_others/unintended.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/mnist_0_ours/ground_truth.png} 
+      \\ 
+        \includegraphics[width=\imgwidth\linewidth]{experiments/cifar100_25_ours/0000.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/cifar100_25_ours/0020.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/cifar100_25_ours/0050.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/cifar100_25_ours/0100.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/cifar100_25_ours/0500.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/cifar100_25_others/unintended.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/cifar100_25_ours/ground_truth.png} 
+      \\
+        \includegraphics[width=\imgwidth\linewidth]{experiments/svhn_1_ours/0000.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/svhn_1_ours/0020.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/svhn_1_ours/0050.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/svhn_1_ours/0100.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/svhn_1_ours/0500.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/svhn_1_others/unintended.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/svhn_1_ours/ground_truth.png}
+      \\
+        \includegraphics[width=\imgwidth\linewidth]{experiments/lfw_51_ours/0000.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/lfw_51_ours/0020.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/lfw_51_ours/0050.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/lfw_51_ours/0100.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/lfw_51_ours/0500.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/lfw_51_others/unintended.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/lfw_51_ours/ground_truth.png}
+      \\
+    \end{tabular}
+    \caption{The visualization showing the deep leakage on images from MNIST~\cite{lecun1998mnist}, CIFAR-100~\cite{krizhevsky2009cifar}, SVHN~\cite{netzer2011svhn} and LFW~\cite{LFWTech} respectively. 
+    Our algorithm fully recovers the four images while previous work only succeeds on simple images with clean backgrounds.
+    % More examples can be found in appendix. \zhijian{I think one visualization for the history should be enough; we can put more final results}
+    }
+    \label{fig:experiment_vision}
+\end{figure}

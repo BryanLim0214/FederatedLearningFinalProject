@@ -1,0 +1,32 @@
+\section{Related Work}
+\subsection{Distributed Training} 
+%%%%%%%%%%%%%%%%%%%%% IN SHORT: Distributed training
+Training large machine learning models (e.g., deep neural networks) is computationally intensive. In order to finish the training process in a reasonable time, many studies worked on distributed training to speedup. There are many works that aim to improve the scalability of distributed training, both at the algorithm level~\cite{li2014scaling, dean2012large, recht2011hogwild, goyal2017accurate, jia2018highly} and at the framework level~\cite{chen2015mxnet, chainermn_mlsys2017, tensorflow2015-whitepaper, paszke2017pytorch, sergeev2018horovod}. 
+Most of them adapt synchronous SGD as the backbone because the stable performance while scaling up.
+
+% \ligeng{I just checked with an expect in distributed training. He said the design w/o a parameter server should be named ``homogeneous'' design, says the role of every participant is equal}
+% heterogeneous
+
+%%%%%%%%%%%%%%%%%%%%% IN SHORT: The gradient sharing scheme
+In general, distributed training can be classified into two categories: with a parameter server (centralized)~\cite{li2014scaling, iandola2016firecaffe, kim2016deepspark} and without a parameter server (decentralized)~\cite{barney2010introduction_to_parallel_computing, patarasuk2009ring_all_reduce, sergeev2018horovod}). In both schemes, each node first performs the computation to update its local weights, and then sends gradients to other nodes. For the centralized mode, the gradients first get aggregated and then delivered back to each node. For decentralized mode, gradients are exchanged between neighboring nodes. 
+
+%%%%%%%%%%%%%%%%%%%%% IN SHORT: Collaborative learning
+% Despite scalability, privacy and security are also important issues.  
+% Conventional training is usually performed in a centralized manner where all data is accessible for all worker nodes. 
+% This is undesirable when the data contains private information. 
+% (e.g., health-care records, personal images, personally identifiable information)
+In many application scenarios, the training data is privacy-sensitive. For example, a patient's medical condition can not be shared across hospitals. To avoid the sensitive information being leaked, collaborative learning has recently emerged~\cite{jochems2017developing, jochems2016distributed, mcmahan2016communication} where two or more participants can jointly train a model while the training dataset never leave each participants' local server. Only the gradients are shared across the network.
+% 
+This technique has been used to train models for medical treatments across multiple hospitals~\cite{jochems2016distributed}, analyze patient survival situations from various countries~\cite{jochems2017developing} and build predictive keyboards to improve typing experience~\cite{mcmahan2016communication, google2016federated, bonawitz2019towards}.
+% in Google's product line.
+
+\subsection{``Shallow'' Leakage from Gradients} %  
+%%%%%%%%%%%%%%%%%%%%% IN SHORT: Naive shallow leakage
+Previous works have made some explorations on how to infer the information of training data from gradients.
+For some layers, the gradients already leak certain level of information. For example, the embedding layer in language tasks only produces gradients for words occurred in training data, which reveals what words have been used in other participant's training set~\cite{Melis2018unintended}. But such leakage is ``shallow'': The leaked words is unordered and and it is hard to infer the original sentence due to ambiguity.
+% 
+Another case is fully connected layers, where observations of gradient updates can be used to infer output feature values. However, this cannot extend to convolutional layers because the size of the features is far larger than the size of weights. 
+
+%%%%%%%%%%%%%%%%%%%%% IN SHORT: learning based leakage
+Some recent works develop learning-based methods to infer properties of the batch. They show that a binary classifier trained on gradients is able to determine whether an exact data record (membership inference~\cite{shokri2017membership, Melis2018unintended}) or a data record with certain properties (property inference~\cite{Melis2018unintended}) is included in the other participant's' batch. Furthermore, they train GAN models~\cite{goodfellow2014generative} to synthesis images look similar to training data from the gradient ~\cite{hitaj2017information, Melis2018unintended, fredrikson2015model_inversion}, but the attack is limited and only works when all class members look alike (e.g., face recognition).
+

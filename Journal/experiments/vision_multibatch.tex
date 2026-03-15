@@ -1,0 +1,56 @@
+\newcommand{\bigcell}[2]{
+    \begin{tabular}{@{}#1@{}}
+        #2
+    \end{tabular}
+}
+
+\begin{figure}[b]
+    \centering
+    \small
+    \begin{tabular}{c c c c c c c c c c}
+      % Iters=0 & Iters=10 & Iters=50 & Iters=100 & Iters=500 & Melis~\cite{Melis2018unintended} & Ground Truth \\
+        Initial     &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/0-0.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/1-0.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/2-0.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/3-0.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/4-0.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/5-0.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/6-0.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/7-0.png} 
+      \\ 
+        Middle Stage   &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/0-100.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/1-100.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/2-100.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/3-100.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/4-100.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/5-100.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/6-100.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/7-100.png} 
+      \\
+        Fully  Leaked &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/0-400.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/1-400.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/2-400.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/3-400.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/4-400.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/5-400.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/6-400.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/7-400.png} 
+      \\ % \hline
+        Ground  Truth &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/0-ground-truth.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/1-ground-truth.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/2-ground-truth.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/3-ground-truth.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/4-ground-truth.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/5-ground-truth.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/6-ground-truth.png} &
+        \includegraphics[width=\imgwidth\linewidth]{experiments/multi_batch/7-ground-truth.png} 
+      \\
+    \end{tabular}
+    \caption{Results of deep leakage of batched data. Though the order may not be the same and there are more artifact pixels, DLG still produces images very close to the original ones.}
+    \label{fig:experiment_vision_multi_batch}
+    \vspace{-10pt}
+\end{figure}

@@ -1,0 +1,71 @@
+%% layout
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\newcommand{\xpar}[1]{\noindent\textbf{#1}\ \ }
+\newcommand{\vpar}[1]{\vspace{3mm}\noindent\textbf{#1}\ \ }
+
+%% notations
+\newcommand{\sect}[1]{Section~\ref{#1}}
+\newcommand{\sects}[1]{Sections~\ref{#1}}
+\newcommand{\eqn}[1]{Equation~\ref{#1}}
+\newcommand{\eqns}[1]{Equations~\ref{#1}}
+\newcommand{\fig}[1]{Figure~\ref{#1}}
+\newcommand{\figs}[1]{Figures~\ref{#1}}
+\newcommand{\tab}[1]{Table~\ref{#1}}
+\newcommand{\tabs}[1]{Tables~\ref{#1}}
+
+\newcommand{\ignorethis}[1]{}
+\newcommand{\norm}[1]{\lVert#1\rVert}
+\newcommand{\fcseven}{$\mbox{fc}_7$}
+
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\def\naive{na\"{\i}ve\xspace}
+\def\Naive{Na\"{\i}ve\xspace}
+
+\makeatletter
+\DeclareRobustCommand\onedot{\futurelet\@let@token\@onedot}
+\def\@onedot{\ifx\@let@token.\else.\null\fi\xspace}
+
+\def\iid{\emph{i.i.d}\onedot}
+\def\eg{\emph{e.g}\onedot} \def\Eg{\emph{E.g}\onedot}
+\def\ie{\emph{i.e}\onedot} \def\Ie{\emph{I.e}\onedot}
+\def\cf{\emph{c.f}\onedot} \def\Cf{\emph{C.f}\onedot}
+\def\etc{\emph{etc}\onedot} \def\vs{\emph{vs}\onedot}
+\def\wrt{w.r.t\onedot} \def\dof{d.o.f\onedot}
+\def\etal{\emph{et al}\onedot}
+\makeatother
+
+%% comments
+\definecolor{citecolor}{RGB}{34,139,34}
+\definecolor{mydarkblue}{rgb}{0,0.08,1}
+\definecolor{mydarkgreen}{rgb}{0.02,0.6,0.02}
+\definecolor{mydarkred}{rgb}{0.8,0.02,0.02}
+\definecolor{mydarkorange}{rgb}{0.40,0.2,0.02}
+\definecolor{mypurple}{RGB}{111,0,255}
+\definecolor{myred}{rgb}{1.0,0.0,0.0}
+\definecolor{mygold}{rgb}{0.75,0.6,0.12}
+\definecolor{mydarkgray}{rgb}{0.66, 0.66, 0.66}
+
+\newcommand{\ligeng}[1]{\textcolor{mydarkred}{[Ligeng: #1]}}
+\newcommand{\zhijian}[1]{\textcolor{mydarkblue}{[Zhijian: #1]}}
+\newcommand{\SH}[1]{\textcolor{mydarkred}{[Song: #1]}}
+
+\newcommand{\myparagraph}[1]{\paragraph{#1}}
+\newcommand{\minisection}[1]{\vspace{5pt}\noindent\textbf{#1.}}
+
+% extra package and macros
+\usepackage{xcolor}
+\usepackage{amssymb}% http://ctan.org/pkg/amssymb
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\usepackage{graphicx}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\usepackage{multirow}
+\usepackage{wrapfig,lipsum,booktabs}

@@ -1,8 +1,0 @@
-{
-  "n_features": 109,
-  "model_size_bytes": 596186,
-  "rank_list_size_bytes": 30,
-  "compression_ratio": 19872.866666666665,
-  "per_round_model_total": 38155904,
-  "per_round_rank_total": 960
-}

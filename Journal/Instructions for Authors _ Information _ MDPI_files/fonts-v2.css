@@ -1,0 +1,163 @@
+html {
+  font-family: "Suisse Int'l", Helvetica, Arial, system-ui, sans-serif;
+}
+
+@font-face {
+  font-family: "Suisse Int'l";
+  font-style: normal;
+  font-weight: 100;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-Hairline.woff2) format("woff2"),
+       url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-UltraLight.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "Suisse Int'l";
+  font-style: italic;
+  font-weight: 100;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-HairlineIt.woff2) format("woff2"),
+       url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-UltraLightItalic.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "Suisse Int'l";
+  font-style: normal;
+  font-weight: 200;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-Thin.woff2) format("woff2"),
+       url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-Thin.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "Suisse Int'l";
+  font-style: italic;
+  font-weight: 200;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-ThinIt.woff2) format("woff2"),
+       url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-ThinItalic.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "Suisse Int'l";
+  font-style: normal;
+  font-weight: 300;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-Light.woff2) format("woff2"),
+       url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-Light.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "Suisse Int'l";
+  font-style: italic;
+  font-weight: 300;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-LightIt.woff2) format("woff2"),
+       url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-LightItalic.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "Suisse Int'l";
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-Regular.woff2) format("woff2"),
+       url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-Regular.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "Suisse Int'l";
+  font-style: italic;
+  font-weight: 400;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-RegularIt.woff2) format("woff2"),
+       url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-RegularItalic.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "Suisse Int'l";
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-Medium.woff2) format("woff2"),
+       url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-Medium.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "Suisse Int'l";
+  font-style: italic;
+  font-weight: 500;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-MediumIt.woff2) format("woff2"),
+       url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-MediumItalic.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "Suisse Int'l";
+  font-style: normal;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-SemiBold.woff2) format("woff2"),
+       url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-SemiBold.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "Suisse Int'l";
+  font-style: italic;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-SemiBoldIt.woff2) format("woff2"),
+       url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-SemiBoldItalic.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "Suisse Int'l";
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-Bold.woff2) format("woff2"),
+       url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-Bold.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "Suisse Int'l";
+  font-style: italic;
+  font-weight: 700;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-BoldIt.woff2) format("woff2"),
+       url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-BoldItalic.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "Suisse Int'l";
+  font-style: normal;
+  font-weight: 800;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-Black.woff2) format("woff2"),
+       url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-Black.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "Suisse Int'l";
+  font-style: italic;
+  font-weight: 800;
+  font-stretch: 100%;
+  font-display: swap;
+  src: url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-BlackIt.woff2) format("woff2"),
+       url(https://pub.mdpi-res.com/assets/fonts/suisse/SuisseIntl-BlackItalic.otf) format("opentype");
+}

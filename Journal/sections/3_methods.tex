@@ -1,0 +1,115 @@
+% \section{Discussion of the uniqueness}\label{proof}
+% \input{contents/proof.tex}
+\newcommand\imgwidth{0.07}
+
+% \section{Method}\label{sec:methods}
+
+\section{Method}\label{sec:methods}
+
+% \textbf{Problem Setup.} In 
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{figures/fig2-crop.pdf}
+    \caption{The overview of our DLG algorithm. Variables to be updated are marked with a bold border. While normal participants calculate $\nabla W$ to update parameter using its private training data, the malicious attacker updates its dummy inputs and labels to minimize the gradients distance. When the optimization finishes, the evil user is able to obtain the training set from honest participants.
+    }
+    \label{fig:methods}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%% IN SHORT: Algorithm
+% To motivate section, we first describe the problem settings. We then introduce our DLG algorithm and discuss the modification to deal with batched data. 
+
+We show that it's possible to steal an image pixel-wise and steal a sentence token-wise from the gradients. We focus on the standard synchronous distributed training: At each step $t$,  every node $i$ samples a minibatch 
+% $(\mathbf{x}_t, \mathbf{y}_t) =  \{ x_{t, j}, y_{t, j} \} _{j=1}^{n} $ 
+$(\mathbf{x}_{t, i}, \mathbf{y}_{t, i}) $
+from its own dataset to compute the gradients
+
+\begin{equation}
+    % \vspace{-10pt}
+    \nabla W_{t, i} = \frac{
+        \partial \ell (F(\mathbf{x}_{t, i}, W_{t}), \mathbf{y}_{t, i} )
+    }{
+        \partial W_t
+    } 
+    % \vspace{-10pt}
+\end{equation}
+
+The gradients are averaged across the $N$ servers and then used to update the weights:
+\begin{equation}
+% \vspace{-10pt}
+\begin{split}
+    \nabla W_{t} = \frac{1}{N} \sum_{j}^{N}  \nabla W_{t, j}; \quad 
+    W_{t+1} = W_{t} - \eta \nabla W_{t}
+\end{split}
+% \vspace{-10pt}
+\end{equation}
+
+% $F()$ and $W_{t}$ are shared by default.
+Given gradients $\nabla W_{t, k}$ received from other participant $k$, we aim to steal participant $k$'s training data $(\mathbf{x}_{t, k}, \mathbf{y}_{t, k})$. Note $F()$ and $W_{t}$ are shared by default for synchronized distributed optimization.
+
+% \pagebreak
+
+\subsection{Training Data Leakage through Gradients Matching}\label{sec:algorithm}
+\input{contents/algo1_single_batch.tex}
+
+To recover the data from gradients, we first randomly initialize a dummy input $\mathbf{x'}$ and label input $\mathbf{y'}$. We then feed these ``dummy data'' into models and get ``dummy gradients''.
+
+\begin{equation}
+\nabla W' = \frac{
+        \partial \ell (F(\mathbf{x}', W), \mathbf{y}' ) 
+    }{
+        \partial W
+    }
+\end{equation}
+
+% As proved in Sec.~\ref{proof}, there is a unique mapping between gradients. In another word, 
+Optimizing the dummy gradients close as to original also makes the dummy data close to the real training data (the trends shown in Fig.~\ref{fig:vision_fig3}). Given gradients at a certain step, we obtain the training data by minimizing the following objective 
+\begin{align}
+\begin{split}
+\mathbf{x'}^{*}, \mathbf{y'}^{*}
+    = \argmin_{\mathbf{x'}, \mathbf{y}'} ||\nabla W' - \nabla W||^2 
+    = \argmin_{\mathbf{x'}, \mathbf{y}'} || 
+        \frac{\partial \ell (F(\mathbf{x}', W), \mathbf{y}')}{\partial W} -
+        % \frac{\partial \ell (F(\mathbf{x}_t, W_{t}), \mathbf{y}_t)}{\partial W})
+        \nabla W
+    ||^2
+\end{split}
+\end{align}
+
+The distance $||\nabla W' - \nabla W||^2$ is differentiable w.r.t dummy inputs $\mathbf{x'}$ and labels $\mathbf{y'}$ can thus can be optimized using standard gradient-based methods. Note that this optimization requires $2^{nd}$ order derivatives. We make a mild assumption that $F$ is twice differentiable, which holds for the majority of modern machine learning models (e.g., most neural networks) and tasks. 
+
+% \pagebreak
+% In some tasks, the data may contain discrete parts, e.g., class labels and word vectors. For such a case, we optimize their continuous alternatives instead. More details can be found in the experiment section. 
+% 
+
+\subsection{Deep Leakage for Batched Data}\label{sec:algorithm:batched}
+\input{experiments/vision.tex}
+
+
+The algo.~\ref{algorithm:deep_leakage} works well when there is only a single pair of input and label in the batch. However when we naively apply it to the case where batch size $N \ge 1$, the algorithm would be too slow to converge. We think the reason is that batched data can have $N!$ different permutations and thus make optimizer hard to choose gradient directions. 
+% 
+To force the optimization closer to a solution, instead of updating the whole batch, we update a single training sample instead. 
+%
+We modify the \textit{line 6} in algo.~\ref{algorithm:deep_leakage} to : 
+
+\begin{align}
+\begin{split}
+    \mathbf{x'}^{i \bmod N}_{t+1} &\leftarrow \mathbf{x'}^{i \bmod N}_{t} - \nabla_{\mathbf{x'}^{i \bmod N}_{t+1}} \mathbb{D}
+    \\
+    \mathbf{y'}^{i \bmod N}_{t+1} &\leftarrow \mathbf{y'}^{i \bmod N}_{t} - \nabla_{\mathbf{y'}^{i \bmod N}_{t+1}} \mathbb{D}
+\end{split}
+\end{align}
+
+Then we can observe fast and stable convergence. We list the iterations required for convergence for different batch sizes in Tab.~\ref{tab:batched_restore} and provide visualized results in Fig.~\ref{fig:experiment_vision_multi_batch}. The larger the batch size is, the more iterations DLG requires to attack. 
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c|c|c|c|c}
+                  & BS=1 & BS=2 & BS=4 & BS=8 \\ \hline
+        ResNet-20 & 270 & 602 & 1173 & 2711 
+    \end{tabular}
+    \caption{The iterations required for restore batched data on CIFAR~\cite{krizhevsky2009cifar} dataset. 
+    }
+    \label{tab:batched_restore}
+\end{table}
+\input{experiments/vision_multibatch.tex}
+\pagebreak

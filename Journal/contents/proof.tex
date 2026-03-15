@@ -1,0 +1,70 @@
+\ligeng{TODO: format the notions.} \ligeng{Justify layer types.}
+
+Let $X_\ell$ and $y_\ell$ be the input and output for $\ell^{th}$ layer. Given the weights $w_\ell$, the calculating process of inputs $X$ labels $Y$ can written as 
+
+\begin{align*} 
+    y_\ell &= f_\ell(X_\ell; w_\ell) \\
+    % y_{\ell+1} &= f_{\ell + 1}(X_{\ell + 1}; w_{\ell + 1}) \\
+    y &=   f_{N} ( f_{N-1} ( ... f_1 (X, w_1) ...w_{N-1} ) w_N) \\
+      &= F(X, W)
+\end{align*}
+
+We care about the uniqueness between inputs $X, Y$ and gradients $\Delta W$. Is it possible that there is another pair of $X', Y'$ that produces the gradients that is same as previous?
+
+
+\begin{equation}
+    \frac{\partial Loss(F(X, W), Y)}{\partial W} = \frac{\partial Loss(F(X', W), Y')}{\partial W'} 
+\end{equation}
+
+
+Assume $j^{th}$ layer is a linear operation, for weight $w_j$
+
+% $$
+%     \frac{\partial Loss}{\partial w_{j}} = 
+%     \frac{\partial Loss'}{\partial w_{j}}
+% $$
+
+\begin{equation}\label{eq:dldw_{j}}
+    \frac{\partial Loss}{\partial y_{j}}
+    \frac{\partial y_{j}}{\partial w_{j}}
+    = 
+    \frac{\partial Loss'}{\partial y'_{j}}
+    \frac{\partial y'_{j}}{\partial w_{j}}
+\end{equation}
+
+For weight $w_{j-1}$
+
+\begin{equation}\label{eq:dldw_{j-1}}
+    \frac{\partial Loss}{\partial y_{j}}
+    \frac{\partial y_{j}}{\partial y_{j-1}}
+    \frac{\partial y_{j-1}}{\partial w_{j-1}}
+    = 
+    \frac{\partial Loss'}{\partial y'_{j}}
+    \frac{\partial y'_{j}}{\partial y'_{j-1}}
+    \frac{\partial y'_{j-1}}{\partial w'_{j-1}}
+\end{equation}
+
+Note, as $f_j()$ is a linear operation, $ \frac{\partial y_{j}}{\partial y_{j-1}}$ actually only relates with  $w_{j-1}$, regardless the inputs $ y_{j-1} $. The formula Eq.~\ref{eq:dldw_{j-1}} can be further simplified to 
+ 
+\begin{equation}
+    \frac{\partial Loss}{\partial y_{j}}
+    % \frac{\partial y_{j}}{\partial y_{j-1}}
+    \frac{\partial y_{j-1}}{\partial w_{j-1}}
+    = 
+    \frac{\partial Loss'}{\partial y'_{j}}
+    % \frac{\partial y'_{j}}{\partial y'_{j-1}}
+    \frac{\partial y'_{j-1}}{\partial w'_{j-1}}
+\end{equation}
+
+Substitute $\frac{\partial Loss}{\partial y_{j}}$ and $\frac{\partial Loss'}{\partial y_{j}}$ from Eq.~\ref{eq:dldw_{j}},
+
+\begin{equation}
+    x_{j} f_{j} (x_{j}, w_{j}) 
+    =
+    x'_{j} f_{j} (x'_{j}, w_{j}) 
+
+\end{equation}
+
+\zhijian{this part seems wrong....}
+
+Since $f_j$ is a linear layer, $x_j f_j(x_j, w_j)$ is monotonous. When the equation holds, $ x_{j} $ must be equivalent as  $ x'_{j} $, which contradicts with the initial assumption $X \neq X, Y \neq Y'$.  

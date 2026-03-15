@@ -1,0 +1,33 @@
+\begin{algorithm}[t]
+    \caption{Deep Leakage from Gradients.}\label{algorithm:deep_leakage}
+    
+    \hspace*{\algorithmicindent} \textbf{Input:} 
+        $F(\mathbf{x};W)$: Differentiable machine learning model;
+        $W$: parameter weights; $\nabla W$: gradients calculated by training data
+    \\
+    \hspace*{\algorithmicindent} \textbf{Output:} private training data $\mathbf{x}, \mathbf{y}$ 
+    \begin{algorithmic}[1]
+    \Procedure{DLG}{$F$, $W$, $\nabla W$} % \Comment{The}
+        \State $\mathbf{x'}_{1} \gets \mathcal{N}(0, 1)$ 
+               , $\mathbf{y'}_{1} \gets \mathcal{N}(0, 1)$ 
+        \Comment{Initialize dummy inputs and labels.}
+        \For{$i \gets 1 \textrm{ to } n$}
+                \State $
+                    \nabla W'_i \gets 
+                        \partial \ell (F(\mathbf{x'}_i, W_{t}), \mathbf{y'}_i)
+                        /
+                        \partial W_t
+                    $ \Comment{Compute dummy gradients.} 
+                \State 
+                    $ \mathbb{D}_i \gets ||\nabla W'_i - \nabla W||^2 $ 
+                    % \Comment{Compute distance between two gradients.}
+                \State 
+                    $\mathbf{x}'_{i+1} \gets \mathbf{x}'_i - \eta \nabla_{\mathbf{x}'_i} \mathbb{D}_i$
+                   ,
+                    $\mathbf{y}'_{i+1} \gets \mathbf{y}'_i - \eta \nabla_{\mathbf{y}'_i} \mathbb{D}_i$
+                    \Comment{Update data to match gradients.}
+        \EndFor
+        \State \textbf{return} $\mathbf{x}'_{n+1}, \mathbf{y}'_{n+1}$
+    \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
